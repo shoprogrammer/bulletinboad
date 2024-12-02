@@ -1,0 +1,14 @@
+{% extends 'bulletion/base.html' %}
+{% block title %}
+お問い合わせ
+{% endblock %}
+
+{% block content %}
+<section class = 'container'>
+    <p>お問合せありがとうございます</p>
+    <p>後日、担当者から連絡させていただきます</p>
+    <a href="{% url 'board-list' %}" class="btn btn-primary">ホームに戻る</a>
+
+
+</section>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "bulletion/base.html" %}
+{% block title %}
+自分の投稿一覧を表示します
+{% endblock %}
+
+{% block content %}
+
+<!-- css test -->
+
+<p class="hightlight">csstesteststeset</p>
+<h2 id="board-link">testestse</h2>
+
+
+<section>
+    <h2>自分の投稿一覧を表示します</h2>
+    <table class="table">
+    <thead>
+        <tr>
+            <th scope="col">掲示板id</th>
+            <th scope="col">タイトル</th>
+            <th scope="col">投稿日時</th>
+            <th scope="col">更新日時</th>
+        </tr>
+    </thead>
+
+    <tbody>
+       
+    {% for obj in boards %}
+     <tr>
+    <th scope="col">{{obj.pk}}</th>
+    <th scope="col"><a href={% url "board-detail" obj.pk %}>{{obj.title}}</a></th>
+    <th scope="col">  {{obj.created_at}}</th> 
+    <th scope="col">{{obj.update_at}}</th> 
+        </tr>
+   
+    {% endfor %} </tbody>
+</table>
+</section>
+<a href="{% url 'board-create' %}" class="btn btn-primary">新規投稿作成</a>
+<a href="{% url 'board-list' %}" class="btn btn-primary">みんなの投稿一覧</a>
+
+{% endblock %}
+    

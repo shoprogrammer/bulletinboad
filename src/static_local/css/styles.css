@@ -1,0 +1,24 @@
+.hightlight{
+    
+    color:blue;
+}
+
+#board-link{
+    color:blue;
+}
+
+/* 全体的に適応 */
+* {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+    text-decoration: none;
+    color: inherit;
+    list-style-position: inside;
+}
+
+body {
+    font-size:16px;
+    color: #333333;
+    font-size:"Hiragino Kaku Gothic ProN", sans-serif;
+}

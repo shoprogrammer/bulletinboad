@@ -1,0 +1,18 @@
+
+
+
+{% if user.is_authenticated %}
+    {% if obj.is_favorite %}
+    <form action="{% url 'remove_favorite' %}" method="post" >
+        {% csrf_token %}
+        <input type="hidden" name="board" value="{{obj.id}}">
+        <button  type="submit" class="btn btn-primary"><i class="bi bi-clipboard-heart-fill"></i></button>
+    </form>
+    {% else %}
+        <form action="{% url 'add_favorite' %}" method="post" >
+            {% csrf_token %}
+            <input type="hidden" name="board" value="{{obj.id}}">
+            <button  type = "submit" class="btn btn-outline-primary"><i class="bi bi-clipboard-heart-fill"></i></button>
+        </form>
+    {% endif %}
+    {% endif %}

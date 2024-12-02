@@ -1,0 +1,121 @@
+{% extends "bulletion/base.html" %}
+{% block title %}
+一覧を表示します
+{% endblock %}
+
+{% block content %}
+
+<!-- css test -->
+
+<p class="hightlight">csstesteststeset</p>
+<h2 id="board-link">testestse</h2>
+
+
+<section>
+    <form method="GET" action="{% url 'search' %}" class="d-flex flex-row mb-3">
+        <div class="col-md-3">
+        <input type="text" name="query" id="id_query" class="form-control" placeholder="検索">
+        </div>
+        <div class="col-md-2">
+        <select name="search_type" class="form-select">
+            <option value="partial">部分一致</option>
+            <option value="prefix">前方一致</option>
+            <option value="suffix">後方一致</option>
+        </select>
+    </div>
+    <div class="col-md-1">
+        <button type="submit" class="btn btn-light">検索</button>
+    </div>
+    </form>
+
+
+
+
+
+    <h2>一覧を表示します</h2>
+    <table class="table">
+    <thead>
+        <tr>
+            <th scope="col">掲示板id
+                 <a href="{% url 'sort' %}?sort=id&direction={{ next_direction|default:'asc' }}">
+                    {% include './direction.html' with sort_field='id' field=sort_by direction=direction %}
+                </a>            
+            </th>
+            <th scope="col">タイトル
+                <a href="{% url 'sort' %}?sort=title&direction={{ next_direction|default:'asc' }}">
+                    {% include './direction.html' with sort_field='title' field=sort_by direction=direction %}
+                </a> 
+            </th>
+            <th scope="col">
+                お気に入り
+            </th>
+            <th scope="col">投稿日時
+                <a href="{% url 'sort' %}?sort=created_at&direction={{ next_direction|default:'asc' }}">
+                    {% include './direction.html' with sort_field='created_at' field=sort_by direction=direction %}
+                </a> 
+            </th>
+            <th scope="col">更新日時
+                <a href="{% url 'sort' %}?sort=update_at&direction={{ next_direction|default:'asc' }}">
+                    {% include './direction.html' with sort_field='update_at' field=sort_by direction=direction %}
+                </a> 
+            </th>
+        </tr>
+    </thead>
+
+    <tbody>
+       
+    {% for obj in object %}
+     <tr>
+    <th scope="col">{{obj.pk}}</th>
+    <th scope="col"><a href={% url "board-detail" obj.pk %}>{{obj.title}}</a></th>
+    <th>
+        {% include 'bulletion/favorite_button.html' with user=user obj=obj %}
+    </th>
+    <th scope="col">  {{obj.created_at}}</th> 
+    <th scope="col">{{obj.update_at}}</th> 
+        </tr>
+   
+    {% endfor %} </tbody>
+</table>
+
+<a href="{% url 'board-create' %}" class="btn btn-primary">新規投稿作成</a>
+<a href="{% url 'my_boards' %}" class="btn btn-primary">自分の投稿一覧</a>
+</section>
+
+
+<!-- ページネーションのリンクを表示 -->
+
+<section class="pagination justify-content-center">
+    <ul class="pagination">
+        {% if object.has_previous %}
+            <li class="page-item">
+            <a class="page-link" href="?page=1">&laquo; 最初</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" href="?page={{ object.previous_page_number }}">前へ</a>
+        </li>
+        {% endif %}
+
+        <li class="page-item disabled">
+        <a class="page-link" href="#">ページ {{ object.number }} / {{ object.paginator.num_pages }}</a>
+        </li>
+
+        {% if object.has_next %}
+        <li class="page-item">
+            <a class="page-link" href="?page={{ object.next_page_number }}">次へ</a>
+        </li>
+        <li class="page-item">
+            <a class="page-link" ref="?page={{ object.paginator.num_pages }}">最後 &raquo;</a>
+        </li>
+
+        {% endif %}
+    </ul>
+</section>
+
+
+
+
+
+
+{% endblock %}
+    
